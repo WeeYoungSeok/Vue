@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>뷰 기초 익히기3</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+  </head>
+  <body>
+    <!-- https://vuejs.org/v2/guide/computed.html#Computed-Properties -->
+    <!-- <div id="app">{{ number + 1 }}</div> -->
+    <!-- v-on:click을 @onclick으로 바꿀 수 있다. -->
+    <div id="app">
+        <button @click="changeMessage">바꾸자</button>
+        {{ reverseMessage }}
+        {{ reverseMessage }} 
+        {{ reverseMessage }}
+    </div>
+    <!-- message.split("").reverse().join("") -->
+    <!-- 변수 스트링을 하나하나 잘라서 배열에 담는데 거꾸로 담는다 그걸 다시 합쳐서 스트링으로 반환 -->
+
+    <!-- computed는 그냥 함수명을 호출하면되고 methods를 이용할때는 ()를 붙여줘야한다! -->
+    <!-- 그렇다면 computed와 methods의 차이점은? -->
+    <!-- 공식 문서에도 나와있다. computed는 캐싱을하고 methods는 캐싱을 하지 않는다. -->
+    <!-- 간단 설명 -->
+    <!-- Vue인스턴스가 처음에 생성될때 message라는 데이타가 헬로우라는 값을 가지고 있고 그 다음 바로 computed라는 속성이 바로 발휘됨 -->
+    <!-- 그래서 () 이것을 안 붙여줘도 이미 생성이 되어서 값이 계산되기때문에 바로 불러올 수 있다. -->
+    <!-- 이미 생성 후 저장 그걸 불러와서 씀 한번만 저장된 걸 쓰는 것 -->
+    <!-- 함수는 호출할때마다 계산해서 리턴을 해주는 것이다. -->
+    <!-- 만약 message라는 값이 바뀌면 computed 안에 있는 함수 안에있는 이미 계산된 값이 바뀌는지 알아보자 -->
+    <!-- changeMessage 함수에 결과 적어둠 -->
+    <script>
+      new Vue({
+        el: "#app",
+        data: {
+          message: "헬로우",
+        },
+
+        // reverseMessage를 함수로 만들어보자
+        methods: {
+        //   reverseMessage() {
+        //     return this.message.split("").reverse().join("");
+        //   },
+        // 이렇게 여기서 버튼으로 message를 바꾸어줘도 이미 생성된 computed의 안에 있는 함수 안에있는 message의 값도 바뀌게 된다.!
+        // 결과값은 석영위 석영위 석영위가 나온다.
+            changeMessage() {
+                this.message = '위영석';
+            }
+        },
+        // 연산 오브젝트
+        // 이것은 중복제거 효과도 볼 수 있다.
+        computed: {
+             reverseMessage() {
+               return this.message.split('').reverse().join('');
+             },
+        },
+      });
+    </script>
+  </body>
+</html>
