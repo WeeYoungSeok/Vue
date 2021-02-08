@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>뷰 기초 익히기2</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      {{ year }} <br />
+      <!-- event, 데이터 양방향 바인딩 -->
+      <!-- https://vuejs.org/v2/guide/events.html -->
+      <!-- vue에서 onclick 이용하기 -->
+      <!-- v-on:click = "함수명"-->
+      <button v-on:click="plus">더하기</button>
+      <button v-on:click="minus">빼기</button>
+
+      <!-- form이 submit하면 기본적으로 창을 리로드시킴 -->
+      <!-- prevent를 붙여주면 리로드를 안하게 됨 -->
+      <!-- 더 많은 evnet처리기는 주석 주소로 가면 된다. -->
+      <!-- v-on:keyup.enter 이런식으로 엔터를 이용할때만 이벤트가 처리되게도 할 수 있다. -->
+      <form v-on:submit.prevent="submit">
+        <!-- 이렇게 v-model로 하게 되면 keyup처럼 메소드까지 안 만들고도 양방향 바인딩이 가능하다. -->
+        <input type="text" v-model="text" /><br />
+
+        <!-- <input type="text" :value="text" @keyup="updateText" /><br /> -->
+        <!-- 우리가 인자로 updateText에 아무것도 안넣어줬는데 밑에 updateText의 매개변수로 들어가서 콘솔에 찍힌다 -->
+        <!-- keyup 이벤트에서 오브젝트를 받아서 자동으로 넣어준다. -->
+        <!-- v-on:keyup은 @keyup과 같다 -->
+        <!-- input태그에 데이터 입력시 미리보기 만들기 -->
+        <!-- 인풋태그의 값이 바뀌면 밑의 text값도 바뀌게 하자 -->
+        {{ text }} <br />
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+
+    <script>
+      // 틀은 그대로지만 함수를 통해 데이터의 값만 변경시킬 수 있다.
+      new Vue({
+        el: "#app",
+        data: {
+          year: 2021,
+          text: "text",
+        },
+        methods: {
+          plus() {
+            this.year++;
+          },
+          minus() {
+            this.year--;
+          },
+          submit() {
+            alert("submitted");
+            console.log("hello");
+          },
+          //updateText(event) {
+          //  text 데이터를 event오브젝트 안에 target안에 value의 값으로 바꾸어준다.
+          // evnet의 속성들은 콘솔창에서 확인할 수 있다
+          // console.log(event);
+          // this.text = event.target.value;
+          //},
+        },
+      });
+    </script>
+  </body>
+</html>
