@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>뷰 기초 익히기</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <!-- 아규먼트로 안녕하세요를 넣어서 밑에 함수 파라미터에 안녕하세요가 들어감 -->
+      {{ person.name }} {{ person.age }} {{ nextYear('안녕') }}
+
+      <!-- input태그의 벨류에 값을 담아주고 싶다 
+            뷰 데이터를 이용해서 이것을 바인딩이라고 한다. -->
+      <!-- 바인딩을 할때는 v-bind:으로 한다! -->
+      <!-- html 태그의 속성은 전부 바인딩이 가능하다. -->
+      <!-- v-bind:해서 하면 속성을 쓸때 너무 길어지기 때문에 :이거만 해도 잘 설정된다. -->
+      <input v-bind:type="type" :value="5555" />
+      <a :href="getNaverLink('naver.com')">위영석 채널</a>
+    </div>
+    <!-- 뷰 인스턴스 생성 -->
+    <!-- 이렇게되면 div태그 안에 우리가 만든 인스턴스를 넣어줄 수 있다. -->
+    <!-- name이라는 변수를 가져옴 div 태그 안에 가져올때는 {{변수명}} -->
+    <!-- data안에 person이라는 자바와 비슷한 객체를 생성하여 객채명.변수명으로 가져올 수 있다. -->
+    <script>
+      new Vue({
+        el: "#app",
+        data: {
+          person: {
+            name: "위영석",
+            age: 28,
+          },
+          inputData: "바인딩",
+          type: "number",
+          link: "https://www.",
+        },
+        methods: {
+          getNaverLink(word) {
+            return this.link + word;
+          },
+          // 여기안에는 함수가 들어갈 수 있음.
+          // greeting이라는 매개변수를 받을 수 있다.
+          // 함수명: function(파라미터) {} 라고 안해도되고 함수명(파라미터) {}로 해도 똑같다!
+          nextYear(greeting) {
+            return (
+              // this.data.person으로 안들어가는 이유는
+              // Vuejs에서 알아서 this안에 data까지 넣어줌.
+              greeting +
+              "! " +
+              this.person.name +
+              "은(는) 내년에 " +
+              (this.person.age + 1) +
+              "살 입니다."
+            );
+          },
+          // 함수에서 다른 함수 호출
+          otherMethod: function () {
+            this.nextYear();
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
