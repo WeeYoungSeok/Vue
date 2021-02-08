@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>뷰 기초 익히기4</title>
+    <style>
+        .red {
+            color: red;
+        }
+
+        .bold {
+            font-weight: bold;
+            
+        }
+        /* .font-bold { font-weight: bold; } */
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+</head>
+<body>
+    <!-- 클래스, 스타일 바인딩 -->
+    <div id="app">
+        <span>클래스 바인딩</span>
+        <!-- 클래스 바인딩은 class앞에 : 붙여주기 -->
+        <div :class="{ red: isRed, bold: isbold }">
+            <!-- 두개의 클래스틑 ,로 구분해서 넣어주자 -->
+            <!-- 만약에 클래스 이름에 -이런 바가 들어가게되면 클래스 이름을 bold자리에 'font-bold'라고 써주면 된다. -->
+            <!-- bold red는 클래스 이름이 된다. 바가 들어가면 ''묶에주어야 한다. -->
+            Hello
+        </div>
+        <button @click="update">Click</button><br><br>
+        <!-- 처음에는 red: false이기 때문에 class가 없다 -->
+        <!-- 하지만 버튼을 눌러주면 함수에서 isRed를 !isRed로 바꾸어주라 했기 때문에 -->
+        <!-- false에서 ture로 바뀌고 class가 생기게된다. 그리고 스타일이 먹히게 된다. -->
+
+        <span>스타일 바인딩</span>
+        <div :style="{ color: red, fontSize: size}">Hello</div>
+        <!-- {}안에는 java가 들어감 font-size css속성은 fontSize임 -->
+        
+    </div>
+    <script>
+        new Vue({
+          el: "#app",
+          data: {
+            isRed: false,
+            isbold: false,
+            red: 'red',
+            size: '30px'
+          },
+  
+          methods: {
+              update() {
+                  this.isRed = !this.isRed;
+                  this.isbold = !this.isbold;
+              }
+          },
+        });
+      </script>
+</body>
+</html>
