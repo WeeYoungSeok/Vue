@@ -8,14 +8,18 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
   </head>
   <body>
+    <!-- computed -->
     <!-- https://vuejs.org/v2/guide/computed.html#Computed-Properties -->
     <!-- <div id="app">{{ number + 1 }}</div> -->
     <!-- v-on:click을 @onclick으로 바꿀 수 있다. -->
     <div id="app">
-        <button @click="changeMessage">바꾸자</button>
-        {{ reverseMessage }}
+        <!-- watch -->
+        {{ message }} <br>
+        <button @click="changeMessage">Click</button><br>
+        {{ updated }}
+        <!-- {{ reverseMessage }}
         {{ reverseMessage }} 
-        {{ reverseMessage }}
+        {{ reverseMessage }} -->
     </div>
     <!-- message.split("").reverse().join("") -->
     <!-- 변수 스트링을 하나하나 잘라서 배열에 담는데 거꾸로 담는다 그걸 다시 합쳐서 스트링으로 반환 -->
@@ -35,6 +39,7 @@
         el: "#app",
         data: {
           message: "헬로우",
+          updated: '아니오',
         },
 
         // reverseMessage를 함수로 만들어보자
@@ -55,6 +60,17 @@
                return this.message.split('').reverse().join('');
              },
         },
+
+        watch: {
+            // data의 message와 여기 message는 같은걸 넣어줘야함
+            // newVal에는 새로 업데이트된 message가 들어오고 oldVal에는 업데이트 되기전 message가 들어온다
+            // 원래 message는 헬로우였는데 그걸 changeMessage 함수가 실행되면 message가 위영석으로 바뀌게한다. 
+            message(newVal, oldVal) {
+                console.log(newVal, oldVal);
+                this.updated = '네';
+                // 버튼을 클릭하면 헬로우가 위영석, 아니오가 네로 바뀌게 된다.
+            }
+        }
       });
     </script>
   </body>
